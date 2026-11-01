@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>청운재의 겨울</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Nanum+Gothic+Coding:wght@400;700&family=Nanum+Myeongjo:wght@400;700;800&display=swap">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="readability.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<section id="login" class="login" hidden>
+  <div class="login-art" aria-hidden="true">
+    <img class="art-brush" src="assets/art/brush.svg" alt="">
+    <img class="art-walker" src="assets/art/walker.svg" alt="">
+    <p class="art-caption">plate 01</p>
+  </div>
+  <div class="login-card">
+    <button class="ghost login-lang" type="button" data-lang-toggle>EN</button>
+    <p class="eyebrow" data-i18n="loginEyebrow">봉화경찰서 형사과 · 사건번호 2023-1224</p>
+    <h1 data-i18n="title">청운재의 겨울</h1>
+    <p class="lede" data-i18n-html="loginLede">눈에 갇힌 고택, 잠긴 서고, 서른 해 전의 불.<br>자료만으로 하나의 결론에 도달하라.</p>
+    <form id="login-form" autocomplete="off">
+      <label for="name" data-i18n="nameLabel">수사관 이름</label>
+      <input id="name" name="name" maxlength="20" required placeholder="이름을 입력하세요" data-i18n-placeholder="namePlaceholder">
+      <p class="ip-line"><span data-i18n="ipLabel">접속 IP</span> <span id="ip">…</span></p>
+      <button type="submit" data-i18n="start">수사 시작</button>
+      <p id="login-error" class="error" role="alert"></p>
+    </form>
+    <p class="fine" data-i18n-html="loginFine">진행 상황은 <b>이름 + 접속 IP</b> 조합으로 서버에 저장됩니다. 같은 기기·같은 네트워크에서 같은 이름으로 들어오면 이어서 할 수 있습니다.</p>
+  </div>
+  <div class="login-edge" aria-hidden="true"></div>
+</section>
+
+<section id="app" class="app" hidden>
+  <header class="topbar">
+    <button id="case-home" class="brand" type="button" aria-label="수사 현황"><span class="brand-code">case 2023-1224</span><span class="brand-title" data-i18n="title">청운재의 겨울</span></button>
+    <nav class="mobile-tabs" aria-label="화면 전환">
+      <button data-pane="files" class="active" data-i18n="tabFiles">자료</button>
+      <button data-pane="viewer" data-i18n="tabViewer">문서</button>
+      <button data-pane="side" data-i18n="tabSide">수첩·질문</button>
+    </nav>
+    <div class="who">
+      <span id="who"></span>
+      <button class="tool-toggle ghost" type="button" data-tool="notes" aria-controls="side" aria-expanded="false" data-ui="notebook">수첩</button>
+      <button class="tool-toggle ghost" type="button" data-tool="questions" aria-controls="side" aria-expanded="false" data-ui="questions">질문 확인</button>
+      <button class="ghost" type="button" data-lang-toggle>EN</button>
+      <button id="sound-toggle" class="ghost" type="button" aria-pressed="true">sound on</button>
+      <button id="logout" class="ghost" data-i18n="logout">나가기</button>
+    </div>
+  </header>
+  <main class="layout">
+    <aside id="files" class="pane files" aria-label="자료 목록"></aside>
+    <article id="viewer" class="pane viewer" aria-live="polite">
+      <div class="empty">
+        <img class="empty-art" src="assets/art/elevation.svg" alt="" aria-hidden="true">
+        <span data-i18n-html="emptyHint">왼쪽에서 자료를 고르세요.<br>먼저 <b>수사 원칙</b>을 읽기를 권합니다.</span>
+      </div>
+    </article>
+    <aside id="side" class="pane side">
+      <div class="side-heading"><span data-ui="workspace">수사 작업대</span><button id="close-tools" type="button" class="icon-button" aria-label="닫기">×</button></div>
+      <div class="side-tabs" role="tablist" aria-label="수사 작업대">
+        <button role="tab" id="notes-tab" aria-controls="tab-notes" aria-selected="true" data-tab="notes" class="active" data-i18n="tabNotes">수첩</button>
+        <button role="tab" id="questions-tab" aria-controls="tab-questions" aria-selected="false" tabindex="-1" data-tab="questions" data-i18n="tabQuestions">질문</button>
+      </div>
+      <div id="tab-notes" class="tab" role="tabpanel" aria-labelledby="notes-tab">
+        <div class="notebook-hint" data-ui="noteHint">자료의 문장을 선택해 출처와 함께 인용하세요.</div>
+        <textarea id="notes" spellcheck="false" placeholder="추리를 적으세요. 자동 저장됩니다.&#10;자료에서 문장을 드래그하면 인용할 수 있습니다." data-i18n-placeholder="notesPlaceholder"></textarea>
+        <p id="notes-status" class="status" data-i18n="saved">저장됨</p>
+      </div>
+      <div id="tab-questions" class="tab" role="tabpanel" aria-labelledby="questions-tab" hidden></div>
+    </aside>
+  </main>
+  <button id="quote-btn" class="quote-btn" hidden data-i18n="quote">수첩에 인용</button>
+</section>
+
+<div id="seal-overlay" class="seal-overlay" aria-hidden="true" hidden>
+  <img src="assets/art/stipple.svg" alt="">
+  <p id="seal-title" class="seal-title"></p>
+</div>
+<script src="engine.js"></script>
+<script src="readability.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
